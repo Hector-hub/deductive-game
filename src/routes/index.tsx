@@ -84,9 +84,7 @@ export default component$(() => {
         answerState.totalPoints=response.totalPoints;
 
       });
-      return () => {
-        clearInterval(checkScreenSize);
-      };
+    
   });
   
 
