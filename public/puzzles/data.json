@@ -1,0 +1,142 @@
+{
+    "totalPoints": 24,
+    "tableColsRows": 4,
+    "premises": [
+        "Lucila, que pasó muchas tardes en el Jardín de Plantas, viajó un año después que Corina.",
+        "La que fue a estudiar Letras llegó a París un año después que Elvira. Elvira, a su vez, viajó un año después que lo hiciera la que iba muy seguido a la Place des Vosges.",
+        "La joven que hizo un posgrado en Historia vivía en Montmartre, su lugar preferido de la ciudad.",
+        "Magdalena fue a especializarse en Ciencias Políticas. Dos años después que ella, llegó la que quedó fascinada con Montparnasse."
+    ],
+    "verticalTable": {
+        "headers": [
+            "Nombre",
+            "Posgrado",
+            "Lugar"
+        ],
+        "body": [
+            "Corina",
+            "Elvira",
+            "Lucila",
+            "Magdalena",
+            "Cs. Políticas",
+            "Economía",
+            "Historia",
+            "Letras",
+            "Jardín de Plantas",
+            "Montmartre",
+            "Montparnasse",
+            "Place des Vosges"
+        ]
+    },
+    "horizontalTable": {
+        "headers": [
+            "Año",
+            "Lugar",
+            "Posgrado"
+        ],
+        "body": [
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "Jardín de Plantas",
+            "Montmartre",
+            "Montparnasse",
+            "Place des Vosges",
+            "Cs. Políticas",
+            "Economía",
+            "Historia",
+            "Letras"
+        ]
+    },
+   
+    "tableData": [
+        {
+            "name": "Año",
+            "body": [
+                {"text":"2015","answer":["Magdalena","Cs. Políticas","Place des Vosges"]},
+                {"text":"2016","answer":["Elvira","Historia","Montmartre"]},
+                {"text":"2017","answer":["Corina","Letras","Montparnasse"]},
+                {"text":"2018","answer":["Lucila","Economía","Jardín de Plantas"]}
+            ],
+            "relations": [
+                {
+                    "name": "Nombre",
+                    "body": [
+                        "Corina",
+                        "Elvira",
+                        "Lucila",
+                        "Magdalena"
+                    ]
+                },
+                {
+                    "name": "Posgrado",
+                    "body": [
+                        "Cs. Políticas",
+                        "Economía",
+                        "Historia",
+                        "Letras"
+                    ]
+                },
+                {
+                    "name": "Lugar",
+                    "body": [
+                        "Jardín de Plantas",
+                        "Montmartre",
+                        "Montparnasse",
+                        "Place des Vosges"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Lugar",
+            "body": [
+                {"text":"Jardín de Plantas","answer":["Lucila","Economía"]},
+                {"text":"Montmartre","answer":["Elvira","Historia"]},
+                {"text":"Montparnasse","answer":["Corina","Letras"]},
+                {"text":"Place des Vosges","answer":["Magdalena","Cs. Políticas"]}
+            ],
+            "relations": [
+                {
+                    "name": "Nombre",
+                    "body": [
+                        "Corina",
+                        "Elvira",
+                        "Lucila",
+                        "Magdalena"
+                    ]
+                },
+                {
+                    "name": "Posgrado",
+                    "body": [
+                        "Cs. Políticas",
+                        "Economía",
+                        "Historia",
+                        "Letras"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Posgrado",
+            "body": [
+                {"text":"Cs. Políticas","answer":["Magdalena"]},
+                {"text":"Economía","answer":["Lucila"]},
+                {"text":"Historia","answer":["Elvira"]},
+                {"text":"Letras","answer":["Corina"]}
+            ],
+            "relations": [
+                {
+                    "name": "Nombre",
+                    "body": [
+                        "Corina",
+                        "Elvira",
+                        "Lucila",
+                        "Magdalena"
+                    ]
+                }
+            ]
+        }
+    ]
+}

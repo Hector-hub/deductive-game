@@ -1,0 +1,160 @@
+{
+    "totalPoints": 30,
+    "tableColsRows": 5,
+    "premises": [
+        "Power fue asesinado; el autor del homicidio no fue Arnold ni Sylvester.",
+       "While detuvo al delincuente que actuó en contra de Ripley.",
+       "Arnold fue detenido por Kelly. Su víctima no fue Andrews.",
+       "Kevin fue detenido por violación",
+       "Anderson no detuvo a Sylvester",
+       "Davis fue víctima de Vincent, pero el delito no fue chantaje.",
+       "Morrison no arrestó a Edward ni al otro que robó. Uno de estos dos actuó en contra de Andrews."
+    ],
+    "verticalTable": {
+        "headers": [
+            "Delito",
+            "Víctima",
+            "Policía"
+        ],
+        "body": [
+            "Chantaje",
+            "Homicidio",
+            "Narcotrafíco",
+            "Robo",
+            "Violación",
+            "Andrews",
+            "Clay",
+            "Davis",
+            "Power",
+            "Ripley",
+            "Anderson",
+            "Kelly",
+            "Lee",
+            "Morrison",
+            "White"
+        ]
+    },
+    "horizontalTable": {
+        "headers": [
+            "Delincuente",
+            "Policía",
+            "Víctima"
+        ],
+        "body": [
+            "Arnold",
+            "Edward",
+            "Kevin",
+            "Sylvester",
+            "Vincent",
+            "Anderson",
+            "Kelly",
+            "Lee",
+            "Morrison",
+            "While",
+            "Andrews",
+            "Clay",
+            "Davis",
+            "Power",
+            "Ripley"
+        ]
+    },
+   
+    "tableData": [
+        {
+            "name": "Delincuente",
+            "body": [
+                {"text":"Arnold","answer":["Chantaje","Clay","Kelly"]},
+                {"text":"Edward","answer":["Homicidio","Power","Anderson"]},
+                {"text":"Kevin","answer":["Violación","Ripley","White"]},
+                {"text":"Sylvester","answer":["Robo","Andrews","Lee"]},
+                {"text":"Vincent","answer":["Narcotrafíco","Davis","Morrison"]}
+            ],
+            "relations": [
+                {
+                    "name": "Delito",
+                    "body": [
+                        "Chantaje",
+                        "Homicidio",
+                        "Narcotrafíco",
+                        "Robo",
+                        "Violación"
+                    ]
+                },
+                {
+                    "name": "Víctima",
+                    "body": [
+                        "Andrews",
+                        "Clay",
+                        "Davis",
+                        "Power",
+                        "Ripley"
+                    ]
+                },
+                {
+                    "name": "Policía",
+                    "body": [
+                        "Anderson",
+                        "Kelly",
+                        "Lee",
+                        "Morrison",
+                        "White"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Policía",
+            "body": [
+                {"text":"Anderson","answer":["Homicidio","Power"]},
+                {"text":"Kelly","answer":["Chantaje","Clay"]},
+                {"text":"Lee","answer":["Robo","Andrews"]},
+                {"text":"Morrison","answer":["Narcotrafíco","Davis"]},
+                {"text":"White","answer":["Violación","Ripley"]}
+            ],
+            "relations": [
+                {
+                    "name": "Delito",
+                    "body": [
+                        "Chantaje",
+                        "Homicidio",
+                        "Narcotrafíco",
+                        "Robo",
+                        "Violación"
+                    ]
+                },
+                {
+                    "name": "Víctima",
+                    "body": [
+                        "Andrews",
+                        "Clay",
+                        "Davis",
+                        "Power",
+                        "Ripley"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Víctima",
+            "body": [
+                {"text":"Andrews","answer":["Robo"]},
+                {"text":"Clay","answer":["Chantaje"]},
+                {"text":"Davis","answer":["Narcotrafíco"]},
+                {"text":"Power","answer":["Homicidio"]},
+                {"text":"Ripley","answer":["Violación"]}
+            ],
+            "relations": [
+                {
+                    "name": "Delito",
+                    "body": [
+                        "Chantaje",
+                        "Homicidio",
+                        "Narcotrafíco",
+                        "Robo",
+                        "Violación"
+                    ]
+                }
+            ]
+        }
+    ]
+}
