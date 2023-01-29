@@ -2,9 +2,9 @@ import { component$, useClientEffect$, useStore } from "@builder.io/qwik";
 import InputGrid from "../inputGrid";
 export default component$(({tableData, colsRows}:any) => {
   let styles=[
-   ["border:1px solid; width:33%;"," width:33%; border:1px; border-style: solid none solid none;","  width:33%;border:1px solid;"],
-   ["  width:33%; border:1px solid; border-style: none solid none solid;","  width:33%; border:1px solid; border-style: none solid solid none; "],
-   ["border:1px solid;  width:33%;"]
+   ["border:1px dotted; ","  border:1px; border-style: dotted none dotted none;","  border:1px dotted;"],
+   ["border:1px dotted; border-style: none dotted none dotted;","   border:1px dotted; border-style: none dotted dotted none; "],
+   ["border:1px dotted;  "]
   ]
 
   return (

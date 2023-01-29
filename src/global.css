@@ -20,7 +20,7 @@ body {
 }
 
 main {
-  max-width: 815px;
+  padding: 10px;
   margin: 0 auto;
   background-color: white;
   border-radius: 5px;
@@ -116,15 +116,12 @@ footer a:hover {
   width: 50%;
   justify-content: flex-start;
 }
-table, td,th{
-  border-radius: 3px;
-}
+
 input[type=radio] {
   padding: 0.5em;
   -webkit-appearance: none;
   outline: 0.1em solid black;
   outline-offset: 0.1em;
-  border-radius: 3px;
 }
 
 input[type=radio]:checked {
@@ -132,7 +129,7 @@ input[type=radio]:checked {
   background-color:  var(--qwik-dark-purple);
 }
 
-.border-rounded{
-  border-radius: 3px;
-}
 
+.theader{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}

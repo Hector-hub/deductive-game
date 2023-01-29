@@ -23,7 +23,10 @@ export default component$(() => {
     verticalTableBody: [],
     horizontalTableHeaders: [],
     horizontalTableBody: [],
-    harakirin:5
+    harakirin:5,
+    screenWidth:0,
+    isShowingMsg:false,
+
   });
   const answerState = useStore({
     userPoints:0,
@@ -31,9 +34,26 @@ export default component$(() => {
 
   });
   
-  useClientEffect$(() => {  
-    if (screen.width <  875){ 
-   
+  useClientEffect$(async () => {  
+   await fetch("/puzzles/2.json")
+    .then((response) => response.json())
+    .then((response) => {
+      state.tableData = response.tableData;
+      state.premises = response.premises;
+      state.tableColsRows = response.tableColsRows;
+      state.verticalTableHeaders = response.verticalTable.headers;
+      state.verticalTableBody = response.verticalTable.body;
+      state.horizontalTableHeaders = response.horizontalTable.headers;
+      state.horizontalTableBody = response.horizontalTable.body;
+      state.screenWidth=response.screenWidth;
+      answerState.totalPoints=response.totalPoints;
+
+    });
+    let width=0;
+    width=state.screenWidth===650?705:875;
+
+    if (screen.width <  width &&  state.isShowingMsg===false){ 
+      state.isShowingMsg=true;
       Swal.fire({
         icon: `error`,
         title: 'Oops...',
@@ -55,8 +75,9 @@ export default component$(() => {
           `
         })
       },10000)
-      if (screen.width <  875){
+     
       setTimeout(()=>{
+        if (screen.width <  width){
         Swal.fire({
         title: 'Adios',
         text: `Esta pagina se auto destruira en 5 segundos.`,
@@ -65,25 +86,63 @@ export default component$(() => {
         imageHeight: 280,
         imageAlt: 'nyan',
       })
-      },20000)
+    }
+      },10000)
       setTimeout(()=>{
+        if (screen.width<  width){
         document.write('')
-      },25000)
-     }}
+      }
+      state.isShowingMsg===false
+      },15000)
+     }
+    addEventListener("resize", (event) => {
+      if (event.target.innerWidth <  width &&  state.isShowingMsg===false){ 
+        state.isShowingMsg=true;
+        Swal.fire({
+          icon: `error`,
+          title: 'Oops...',
+          text: 'La resolución de tu pantalla no es suficiente para visualizar este juego de forma adecuada. Gira la tu dispositivo.',
+          footer: `Te recomiendo este juego: <a href="https://counterclick-thegame.web.app/">Counter Click The Game</a>`
+        });
+        setTimeout(()=>{
+          Swal.fire({
+            title: 'Tambien puede visitar mi pagina web: <a href="https://hecrey.000webhostapp.com/">hecrey.com</a>',
+            width: 600,
+            padding: '3em',
+            color: '#716add',
+            background: '#fff url(https://sweetalert2.github.io/images/trees.pngs)',
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("https://sweetalert2.github.io/images/nyan-cat.gif")
+              left top
+              no-repeat
+            `
+          })
+        },10000)
+       
+        setTimeout(()=>{
+          if (event.target.innerWidth <  width){
+          Swal.fire({
+          title: 'Adios',
+          text: `Esta pagina se auto destruira en 5 segundos.`,
+          imageUrl: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/67401945-34fc-46b8-8e8f-1982847277d4/ddba22b-2fad9d00-1d3f-4ec8-a65d-199a09dfa4e1.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzY3NDAxOTQ1LTM0ZmMtNDZiOC04ZThmLTE5ODI4NDcyNzdkNFwvZGRiYTIyYi0yZmFkOWQwMC0xZDNmLTRlYzgtYTY1ZC0xOTlhMDlkZmE0ZTEuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.p1RcYkkOBXh0fzpoZxaTbE1_xNWLfoLqEZv1_0utuzU',
+          imageWidth: 476,
+          imageHeight: 280,
+          imageAlt: 'nyan',
+        })
+      }
+        },10000)
+        setTimeout(()=>{
+          if (event.target.innerWidth <  width){
+          document.write('')
+        }
+        state.isShowingMsg===false
+        },15000)
+       }
+    });
+ 
 
-    fetch("/puzzles/2.json")
-      .then((response) => response.json())
-      .then((response) => {
-        state.tableData = response.tableData;
-        state.premises = response.premises;
-        state.tableColsRows = response.tableColsRows;
-        state.verticalTableHeaders = response.verticalTable.headers;
-        state.verticalTableBody = response.verticalTable.body;
-        state.horizontalTableHeaders = response.horizontalTable.headers;
-        state.horizontalTableBody = response.horizontalTable.body;
-        answerState.totalPoints=response.totalPoints;
-
-      });
+ 
     
   });
   
@@ -91,7 +150,7 @@ export default component$(() => {
   useContextProvider(Answer, answerState);
   return (
     <>
-      <main>
+      <main style={`max-width: ${state.screenWidth}px;`}>
         <Header />
         <section>
           <div >

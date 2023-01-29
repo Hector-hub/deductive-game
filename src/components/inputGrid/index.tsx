@@ -16,7 +16,7 @@ export default component$(({tableName,tableBody,relations,colsRows}:any) => {
     inputs:[]
   })
   return (
-    <div style={"width:auto; height:auto"}>
+    <div style={"width:auto; height:auto;" }>
       {tableBody.map((value: any, index:number) => {
         let i = index + 1;
         return (
