@@ -2,11 +2,10 @@ header {
   display: flex;
   background: white;
   border-bottom: 10px solid var(--qwik-dark-purple);
+  justify-content: space-between;
+  align-items: center;
 }
-
-.logo  {
-  display: inline-block;
-  padding: 10px 10px 7px 20px;
-  color:slateblue;
-  font-size: x-large;
+h1,
+h2 {
+  margin:0 0 10px 8px;
 }

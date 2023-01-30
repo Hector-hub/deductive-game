@@ -1,10 +1,5 @@
-.vertical{
+.vertical {
     writing-mode: vertical-lr;
-                     -ms-writing-mode: tb-rl;
-                     transform: rotate(180deg);
-}
-
-td, th{
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  border: 1px dotted;
+    -ms-writing-mode: tb-rl;
+    transform: rotate(180deg);
 }
