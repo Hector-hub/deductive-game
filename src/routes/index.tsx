@@ -14,10 +14,14 @@ import Grid from "~/components/Grid";
 import Swal from "sweetalert2";
 import AnswerTable from "~/components/AnswerTable";
 import Introduction from "~/components/Introduction";
+import { getPuzzle } from "~/services/getPuzzle";
+import database from "~/firebase";
+import { getGameStatus } from "~/services/getGameStatus";
 
 export const Answer = createContext("answer");
 export const GlobalState = createContext("globalState");
 export default component$(() => {
+  
   const urlParams = useLocation();
   const state = useStore({
     title: "",
@@ -32,6 +36,7 @@ export default component$(() => {
     harakirin: 5,
     screenWidth: 0,
     isShowingMsg: false,
+    isLoaded:false,
   });
   const answerState = useStore({
     userPoints: 0,
@@ -41,13 +46,15 @@ export default component$(() => {
   });
   const globalState = useStore({
     isIntroduction: true,
+    gameStatus:[],
+    gameId:''
   });
   useContextProvider(Answer, answerState);
   useContextProvider(GlobalState, globalState);
   useClientEffect$(async () => {
-    await fetch(`/puzzles/${urlParams.query.puzzle}.json`)
-      .then((response) => response.json())
-      .then((response) => {
+ 
+      await getPuzzle(parseInt(urlParams.query.puzzle)).then((response) => {
+        state.isLoaded=response.isLoaded;
         state.title = response.title;
         state.introduction = response.introduction;
         state.tableData = response.tableData;
@@ -60,10 +67,9 @@ export default component$(() => {
         state.screenWidth = response.screenWidth;
         answerState.totalPoints = response.totalPoints;
         answerState.answerTable = response.answerTable;
-      }).catch(()=>{
-        console.log(urlParams.query.puzzle);
+      }).catch(()=>{        
         if(urlParams.query.puzzle!==undefined){
-          console.log('hols')
+        
           Swal.fire({
             icon: `error`,
             title: "Oops...",
@@ -215,9 +221,9 @@ export default component$(() => {
 
   return (
     <>
-    { state.title !==""&&
+    { (state.isLoaded)?
       <main style={`max-width: ${state.screenWidth}px;`}>
-        {(globalState.isIntroduction  && (
+        {(globalState.isIntroduction   && (
           <Introduction title={state.title} message={state.introduction} />
         )) || (
           <div class={"game-panel"}>
@@ -274,7 +280,7 @@ export default component$(() => {
             </section>
           </div>
         )}
-      </main>
+      </main>:<></>
        }
       <footer></footer>
     </>

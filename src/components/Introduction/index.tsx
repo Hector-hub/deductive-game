@@ -7,6 +7,8 @@ import {
 } from "@builder.io/qwik";
 import Swal from "sweetalert2";
 import { GlobalState } from "~/routes";
+import { createGame } from "~/services/createGame";
+import { getGameStatus } from "~/services/getGameStatus";
 import ChangePuzzleButton from "../Atoms/ChangePuzzleButton";
 import Logo from "../Atoms/Logo";
 import styles from "./Introduction.css?inline";
@@ -59,7 +61,69 @@ export default component$(({ message, title }: any) => {
           </button>
           <button
             onClick$={() => {
-              globalState.isIntroduction = false;
+              Swal.fire({
+                icon: `success`,
+                iconColor:'#fff',
+                iconHtml:'<h3 style="color:slateblue">QeQ</h3>',
+                title: `${title}`,
+                showDenyButton: true,
+                confirmButtonText:"Unirse",
+                confirmButtonColor:"#E74C3C",
+                denyButtonText:"Crear partida",
+                denyButtonColor:'slateblue'
+              }).then((result:any)=>{
+                //Unirse a una partida.
+                if(result.isConfirmed){
+                  Swal.fire({
+                    icon: `success`,
+                    iconColor:'#fff',
+                    iconHtml:'<h3 style="color:slateblue">QeQ</h3>',
+                    title: `Unirse`,
+                    confirmButtonText:"Continuar",
+                    confirmButtonColor:"slateblue",
+                    text: "Ingresa el codigo de partida.",
+                    input: 'text',
+                    inputAttributes: {
+                      autocapitalize: 'off'
+                    },
+                  }).then((result:any)=>{
+                    if(result.isConfirmed){
+                      globalState.isIntroduction = false;
+                      globalState.gameId=result.value
+                      setTimeout(() => {
+                        getGameStatus(result.value)
+                      }, 1000);
+                   
+                    }
+                  });
+                }else if(result.isDenied){
+                  //Crear una partida
+                  Swal.fire({
+                    icon: `success`,
+                    iconColor:'#fff',
+                    iconHtml:'<h3 style="color:slateblue">QeQ</h3>',
+                    title: `Crear partida`,
+                    confirmButtonText:"Continuar",
+                    confirmButtonColor:"slateblue",
+                    text: "Ingresa el codigo de partida.",
+                    input: 'text',
+                    inputAttributes: {
+                      autocapitalize: 'off'
+                    },
+                  }).then((result:any)=>{
+                    if(result.isConfirmed){
+                      globalState.isIntroduction = false;
+                      createGame(result.value)
+                      globalState.gameId=result.value
+                      setTimeout(()=>{
+                        getGameStatus(result.value)
+                      },1000)
+                     
+                    }
+                  });
+                }
+              });
+              
             }}
           >
             Continuar
