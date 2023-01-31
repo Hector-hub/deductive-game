@@ -69,7 +69,8 @@ export default component$(() => {
         answerState.totalPoints = response.totalPoints;
         answerState.answerTable = response.answerTable;
       }).catch(()=>{        
-        if(globalState.puzzleId!==undefined){
+        console.log(globalState.puzzleId);
+        if(globalState.puzzleId!=null){
           Swal.fire({
             icon: `error`,
             title: "Oops...",
