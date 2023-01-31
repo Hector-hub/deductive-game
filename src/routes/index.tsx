@@ -21,8 +21,6 @@ import { getGameStatus } from "~/services/getGameStatus";
 export const Answer = createContext("answer");
 export const GlobalState = createContext("globalState");
 export default component$(() => {
-  
-  const urlParams = useLocation();
   const state = useStore({
     title: "",
     introduction: "",
@@ -47,13 +45,16 @@ export default component$(() => {
   const globalState = useStore({
     isIntroduction: true,
     gameStatus:[],
-    gameId:''
+    gameId:'',
+    puzzleId:1
   });
   useContextProvider(Answer, answerState);
   useContextProvider(GlobalState, globalState);
   useClientEffect$(async () => {
- 
-      await getPuzzle(parseInt(urlParams.query.puzzle)).then((response) => {
+  const urlParams = new URLSearchParams(location.search);
+  const puzzle:any = urlParams.get('puzzle')
+  globalState.puzzleId=puzzle;
+      await getPuzzle(puzzle).then((response) => {
         state.isLoaded=response.isLoaded;
         state.title = response.title;
         state.introduction = response.introduction;
@@ -68,8 +69,7 @@ export default component$(() => {
         answerState.totalPoints = response.totalPoints;
         answerState.answerTable = response.answerTable;
       }).catch(()=>{        
-        if(urlParams.query.puzzle!==undefined){
-        
+        if(globalState.puzzleId!==undefined){
           Swal.fire({
             icon: `error`,
             title: "Oops...",
