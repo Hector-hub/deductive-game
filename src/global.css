@@ -5,6 +5,9 @@
  * the styles in here will be applied to the Document, without any sort of CSS scoping.
  *
  */
+html {
+  scroll-behavior: smooth;
+}
 
 :root {
   --qwik-dark-blue: #006ce9;
@@ -20,25 +23,29 @@ body {
 }
 
 main {
-  max-width: 815px;
+  padding: 0 10px 0 10px;
   margin: 0 auto;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0px 0px 130px -50px var(--qwik-dark-purple);
   overflow: hidden;
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  /* Firefox */
+  -webkit-animation: fadein 2s;
+  /* Safari and Chrome */
+  -o-animation: fadein 2s;
+  /* Opera */
 }
 
-h1,
-h2 {
-  margin: 0 0 5px 0;
-}
+
 
 .lightning {
   filter: hue-rotate(180deg);
 }
 
 section {
- 
+
   border-bottom: 10px solid var(--qwik-dark-purple);
 }
 
@@ -47,8 +54,9 @@ ol {
   padding-left: 20px;
 }
 
-li {
-  font-size:0.9rem;
+p {
+  font-family: 'andle mono', monospace;
+  font-size: 0.9rem;
   padding: 3px 0;
 }
 
@@ -78,14 +86,7 @@ table.commands {
   padding-right: 20px;
 }
 
-code {
-  font-family: Menlo, Monaco, Courier New, monospace;
-  font-size: 0.9em;
-  background-color: rgb(224, 224, 224);
-  padding: 2px 4px;
-  border-radius: 3px;
-  border-bottom: 2px solid #bfbfbf;
-}
+
 
 footer {
   padding: 15px;
@@ -108,6 +109,7 @@ footer a:hover {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+
 }
 
 .column {
@@ -116,23 +118,93 @@ footer a:hover {
   width: 50%;
   justify-content: flex-start;
 }
-table, td,th{
-  border-radius: 3px;
-}
+
 input[type=radio] {
   padding: 0.5em;
   -webkit-appearance: none;
   outline: 0.1em solid black;
   outline-offset: 0.1em;
-  border-radius: 3px;
 }
 
 input[type=radio]:checked {
   display: inline-block;
-  background-color:  var(--qwik-dark-purple);
+  background-color: var(--qwik-dark-purple);
 }
 
-.border-rounded{
-  border-radius: 3px;
+.dClicked {
+  display: inline-block;
+  background-color: #E74C3C;
+
 }
 
+
+.theader {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+table {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.15rem;
+}
+
+td,
+th {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border: 1px dotted;
+}
+
+.game-panel {
+  animation: fadein 3s;
+  -moz-animation: fadein 3s;
+  /* Firefox */
+  -webkit-animation: fadein 3s;
+  /* Safari and Chrome */
+  -o-animation: fadein 3s;
+  /* Opera */
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadein {
+
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadein {
+
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadein {
+
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

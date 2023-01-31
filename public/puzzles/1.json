@@ -1,12 +1,41 @@
 {
+    "screenWidth":650,
     "totalPoints": 24,
     "tableColsRows": 4,
+    "title":"Año luz",
+    "introduction":"Con ese nombre designan estas cuatro jóvenes al año que pasaron en Paris, la Ciudad Luz, cursando un posgrado. Descubra en qué año viajó cada una, qué cursos realizó, y cuál era su lugar favorito de la ciudad.",
     "premises": [
         "Lucila, que pasó muchas tardes en el Jardín de Plantas, viajó un año después que Corina.",
         "La que fue a estudiar Letras llegó a París un año después que Elvira. Elvira, a su vez, viajó un año después que lo hiciera la que iba muy seguido a la Place des Vosges.",
         "La joven que hizo un posgrado en Historia vivía en Montmartre, su lugar preferido de la ciudad.",
         "Magdalena fue a especializarse en Ciencias Políticas. Dos años después que ella, llegó la que quedó fascinada con Montparnasse."
     ],
+    "answerTable": {
+        "headers": [
+            "Año",
+            "Nombre",
+            "Posgrado",
+            "Lugar"
+        ],
+        "body": [
+            [
+                "2015",
+                "Magdalena","Cs. Políticas","Place des Vosges"
+            ],
+            [
+                "2016",
+                "Elvira","Historia","Montmartre"
+            ],
+            [
+                "2017",
+                "Corina","Letras","Montparnasse"
+            ],
+            [
+                "2018",
+                "Lucila","Economía","Jardín de Plantas"
+            ]
+        ]
+    },
     "verticalTable": {
         "headers": [
             "Nombre",

@@ -1,9 +1,5 @@
-.vertical{
+.vertical {
     writing-mode: vertical-lr;
-                     -ms-writing-mode: tb-rl;
-                     transform: rotate(180deg);
-}
-
- th, td {
-  border: 1px solid;
+    -ms-writing-mode: tb-rl;
+    transform: rotate(180deg);
 }

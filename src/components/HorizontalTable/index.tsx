@@ -9,11 +9,11 @@ export default component$(({headers,body, colsRows}:any) => {
         return(
           <tr >
               {index%colsRows===0 &&
-                 <th style={'width:10px'} rowSpan={colsRows} >
-                 <span class={"vertical"}>{headers[index/colsRows]}</span>
+                 <th class={'theader'} style={'width:10px'} rowSpan={colsRows} >
+                 <span  class={"vertical"}>{headers[index/colsRows]}</span>
                </th>
               }
-        <td >
+        <td class={'theader'} >
           {content}
         </td>
       </tr>
