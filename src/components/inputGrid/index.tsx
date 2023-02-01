@@ -1,19 +1,23 @@
-import {
-  component$,
-  useContext,
-  useStore,
-} from "@builder.io/qwik";
+import { component$, useContext, useStore } from "@builder.io/qwik";
 import Swal from "sweetalert2";
-import { Answer } from "~/routes";
-
+import { useWinLose } from "~/hooks/useWinLose";
+import { Answer, GlobalState } from "~/routes";
+import { getGameStatus } from "~/services/getGameStatus";
+import { getTotalUserAnswer } from "~/services/getTotalUserAnswer";
+import { getUserAnswerState } from "~/services/getUserAnswerState";
+import { setUserAnswerState } from "~/services/setUserAnswerState";
+import { updateGameStatus } from "~/services/updateGameStatus";
 export default component$(
   ({ tableName, tableBody, relations, colsRows }: any) => {
-    const answerState:any = useContext(Answer);
+    const globalState: any = useContext(GlobalState);
+    const answerState: any = useContext(Answer);
 
     const state = useStore({
       inputs: [],
       inputsSelected: [],
+      ignoreFirstClick: false,
     });
+
     return (
       <div style={"width:auto; height:auto;"}>
         {tableBody.map((value: any, index: number) => {
@@ -27,76 +31,73 @@ export default component$(
                   <>
                     <input
                       style={"width:18.7px; height:19.6px"}
-                      onDblClick$={(event: any) => {
-                        event.target.setAttribute("class", "dClicked");
-                        event.target.checked = false;
-                      }}
-                      onClick$={(event: any) => {
-                        event.target.setAttribute("class", "clicked");
-                        if (!state.inputsSelected.includes(event.target.name)) {
-                          state.inputsSelected.push(event.target.name);
-                          answerState.userAnswerCount++;
-                        }
-                        if (answer.includes(relation)) {
-                          answerState.userPoints++;
-                          state.inputs.push(event.target.name);
-                        } else if (state.inputs.includes(event.target.name)) {
-                          answerState.userPoints--;
-                          state.inputs.splice(
-                            state.inputs.indexOf(event.target.name),
-                            1
+                      onClick$={async (event: any) => {
+                      
+                        if (state.ignoreFirstClick) {
+                          event.preventDefault();
+                          state.ignoreFirstClick = false;
+                          // Handle double-click event
+                          updateGameStatus(
+                            globalState.gameId,
+                            "x",
+                            event.target.id,
+                            globalState.puzzleId,
+                            event.target.name,
                           );
-                        }
-                        if (
-                          answerState.userPoints === answerState.totalPoints
-                        ) {
-                          Swal.fire({
-                            icon: `success`,
-                            title: "Ganaste!",
-                            showCancelButton: true,
-                            cancelButtonText:"No",
-                            cancelButtonColor:'#ff0000',
-                            input: 'text',
-                            inputAttributes: {
-                              autocapitalize: 'off'
-                            },
-                            text: "¿Quieres jugar otra vez? Ingresa el numero de puzzle.",
-                           
-                          }).then((result:any)=>{
-                            if(result.isConfirmed){
-                              location.href="/?puzzle="+result.value
-                            }
-                          });
-                  
-                        } else if (
-                          answerState.userAnswerCount ===
-                          answerState.totalPoints
-                        ) {
-                          Swal.fire({
-                            icon: `error`,
-                            title: "Has perdido!",
-                            showCancelButton: true,
-                            cancelButtonText:"No",
-                            confirmButtonText:"Si",
-                            cancelButtonColor:'#ff0000',
-                            text: "¿Quieres ver las respuestas?",
-                           
-                          }).then((result:any)=>{
-                            if(result.isConfirmed){
-                              setTimeout(() => {
-                                location.href = "#answers";
-                              }, 1000);
-                            }else{
-                              location.href="/"
-                            }
-                          });
-                         
+                          // getGameStatus(
+                          //   globalState.gameId,
+                          //   globalState.puzzleId
+                          // );
+                        } else {
+                          state.ignoreFirstClick = true;
+                          setTimeout(() => {
+                            if (state.ignoreFirstClick) {
+                              updateGameStatus(
+                                globalState.gameId,
+                                "o",
+                                event.target.id,
+                                globalState.puzzleId,
+                                event.target.value,
+                                event.target.name
+                              );
+
+                              getUserAnswerState(globalState.gameId,globalState.puzzleId).then((values:any)=>{
+                                getTotalUserAnswer(globalState.gameId,globalState.puzzleId).then((value:any)=>{
+                                  answerState.userAnswerCount=value.length
+                               
+                               
+                                  
+
+                                  let answerObj:any=values;
+                                  answerObj[event.target.name]=event.target.value
+                                  if(answerObj.name){
+                                    delete answerObj.name;
+                                  }
+                                 
+                                  setUserAnswerState(globalState.gameId,globalState.puzzleId, answerObj);
+                                  const allPropertiesTrue = Object.values(values).every(value => value === "true");
+                                  const propertiesLength =Object.keys(values).length;
+                                  if(allPropertiesTrue===true && propertiesLength===answerState.totalPoints &&  answerState.userWin===false){
+                                    answerState.userWin=true
+                                  }else{
+                                    answerState.userWin=false
+                                  }
+                                    useWinLose(answerState.userWin,answerState.totalPoints,answerState.userAnswerCount)
+                             
+                                
+                            })
+                          })   
+                          }
+                            state.ignoreFirstClick = false;
+                            // Handle single-click event
+                          }, 250);
                         }
                       }}
                       value={`${answer.includes(relation)}`}
                       type="radio"
+                      class={"radio-button"}
                       name={`${value.text}_${relations.name}`}
-                      id={`${tableName}_${value.text}_${relation}`.replace(
+                      id={`${value.text}_${relations.name}_${relation}_${tableName}`.replace(
                         /\s/g,
                         ""
                       )}
