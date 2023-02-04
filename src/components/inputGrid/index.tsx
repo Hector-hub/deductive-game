@@ -96,7 +96,10 @@ export default component$(
                       value={`${answer.includes(relation)}`}
                       type="radio"
                       class={"radio-button"}
-                      name={`${value.text}_${relations.name}`}
+                      name={`${value.text}_${relations.name}`.replace(
+                        /\s/g,
+                        ""
+                      )}
                       id={`${value.text}_${relations.name}_${relation}_${tableName}`.replace(
                         /\s/g,
                         ""

@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import AnswerTable from "~/components/AnswerTable";
 import Introduction from "~/components/Introduction";
 import { getPuzzle } from "~/services/getPuzzle";
+import PuzzlesGrid from "~/components/PuzzlesGrid";
 
 export const Answer = createContext("answer");
 export const GlobalState = createContext("globalState");
@@ -40,6 +41,7 @@ export default component$(() => {
     userAnswerCount: 0,
   });
   const globalState = useStore({
+    isPuzzleScreen:false,
     isIntroduction: true,
     gameStatus: [],
     gameId: "",
@@ -68,51 +70,14 @@ export default component$(() => {
         answerState.answerTable = response.answerTable;
       })
       .catch(() => {
+        globalState.isPuzzleScreen=true
         if (globalState.puzzleId != null) {
           Swal.fire({
             icon: `error`,
             title: "Oops...",
             text: `Número de puzzle incorrecto.`,
             footer: ``,
-          }).then(() => {
-            Swal.fire({
-              icon: `success`,
-              iconColor: "#fff",
-              iconHtml: '<h3 style="color:slateblue">QeQ</h3>',
-              title: "Bienvenido!",
-              showCancelButton: true,
-              cancelButtonText: "NO",
-              cancelButtonColor: "#ff0000",
-              input: "text",
-              inputAttributes: {
-                autocapitalize: "off",
-              },
-              text: "Ingresa el número de puzzle.",
-            }).then((result: any) => {
-              if (result.isConfirmed) {
-                location.href = "/?puzzle=" + result.value;
-              }
-            });
-          });
-        } else {
-          Swal.fire({
-            icon: `success`,
-            iconColor: "#fff",
-            iconHtml: '<h3 style="color:slateblue">QeQ</h3>',
-            title: "Bienvenido!",
-            showCancelButton: true,
-            cancelButtonText: "NO",
-            cancelButtonColor: "#ff0000",
-            input: "text",
-            inputAttributes: {
-              autocapitalize: "off",
-            },
-            text: "Ingresa el número de puzzle.",
-          }).then((result: any) => {
-            if (result.isConfirmed) {
-              location.href = "/?puzzle=" + result.value;
-            }
-          });
+          })
         }
       });
     let width = 0;
@@ -217,7 +182,10 @@ export default component$(() => {
 
   return (
     <>
-      {state.isLoaded ? (
+    
+      {
+      globalState.isPuzzleScreen? <PuzzlesGrid />:
+      state.isLoaded ? (
         <main style={`max-width: ${state.screenWidth}px;`}>
           {(globalState.isIntroduction && (
             <Introduction title={state.title} message={state.introduction} />
