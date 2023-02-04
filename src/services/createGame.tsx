@@ -1,10 +1,11 @@
 import database from "~/firebase";
 import { ref, set } from "firebase/database";
-export const createGame = (gameId:string) => {
+export const createGame = (gameId:string,puzzleId:number) => {
   
-        set(ref(database, 'games/' + gameId), {
+        set(ref(database, `games/${puzzleId}${gameId}`), {
         o:[''],
-        x:['']
+        x:[''],
+        goodAnswer:{name:'1'}
         });
       
 };
