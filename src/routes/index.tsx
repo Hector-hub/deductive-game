@@ -248,7 +248,8 @@ export default component$(() => {
       ) : (
         <></>
       )}
-      <footer></footer>
+      <br />
+      <footer><h3>Powered by <a href="https://hecrey.000webhostapp.com/">hecrey</a></h3></footer>
     </>
   );
 });
