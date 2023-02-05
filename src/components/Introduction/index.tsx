@@ -14,6 +14,9 @@ import ChangePuzzleButton from "../Atoms/ChangePuzzleButton";
 import Logo from "../Atoms/Logo";
 import styles from "./Introduction.css?inline";
 export default component$(({ message, title }: any) => {
+  const keyboardEffect= new Audio('/audios/keyboard-typing.mp3');
+  const backgroundMusic= new Audio('/audios/background-music.mp3');
+ 
   const globalState: any = useContext(GlobalState);
   const answer:any = useContext(Answer);
   useStylesScoped$(styles);
@@ -22,6 +25,15 @@ export default component$(({ message, title }: any) => {
   });
   useClientEffect$(() => {
     state.messageLength = message.length;
+    backgroundMusic.play()
+    backgroundMusic.volume=0;
+    backgroundMusic.loop=true;
+    keyboardEffect.play()
+    keyboardEffect.volume=0.5
+    setTimeout(()=>{
+      backgroundMusic.volume=0.3;
+      keyboardEffect.pause();
+    },8000)
   });
 
   getUserAnswerState(globalState.gameId,globalState.puzzleId).then((values:any)=>{
@@ -104,6 +116,11 @@ export default component$(({ message, title }: any) => {
                         getGameStatus(result.value, globalState.puzzleId,answer.totalPoints, answer.userWin)
                           .then(() => {
                             globalState.isIntroduction = false;
+                            const keyboardEffect= new Audio('/audios/keyboard-typing.mp3');
+                            keyboardEffect.play();
+                            setTimeout(()=>{
+                              keyboardEffect.pause();
+                            },3000)
                           })
                           .catch(() => {
                             Swal.fire({
@@ -133,6 +150,12 @@ export default component$(({ message, title }: any) => {
                   }).then((result: any) => {
                     if (result.isConfirmed) {
                       globalState.isIntroduction = false;
+                      const keyboardEffect= new Audio('/audios/keyboard-typing.mp3');
+                      keyboardEffect.play();
+                      setTimeout(()=>{
+                        keyboardEffect.pause();
+                      },3000)
+                     
                       createGame(result.value, globalState.puzzleId);
                       globalState.gameId = result.value;
                       setTimeout(() => {
@@ -148,6 +171,10 @@ export default component$(({ message, title }: any) => {
           </button>
         </div>
       </div>
-    </div>
+      <p>
+      Music by <a href="https://pixabay.com/es/users/gioelefazzeri-16466931/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=132133">GioeleFazzeri</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=132133">Pixabay</a>
+   
+      </p>
+      </div>
   );
 });

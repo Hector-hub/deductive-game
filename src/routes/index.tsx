@@ -198,10 +198,10 @@ export default component$(() => {
                     <div class={"column"}>
                       <div style={" overflow: auto; width:auto;height: 285px"}>
                         <ol>
-                          {state.premises.map((premise) => {
+                          {state.premises.map((premise:string) => {
                             return (
                               <li>
-                                <p>{premise}</p>
+                                <p class={'type'} style={`--n:50`}>{premise}</p>
                               </li>
                             );
                           })}
